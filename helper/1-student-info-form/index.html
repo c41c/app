@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ezee Form</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --primary-orange: #ff7f00;
+      --light-orange: #ffb84d;
+    }
+
+    body {
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--light-orange) 0%, var(--primary-orange) 100%);
+      margin: 0;
+      padding: 1.25rem;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 900px;
+      border-radius: 1rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      background: #fff;
+      padding: 1.25rem;
+    }
+    @media (min-width: 640px) {
+      .card { padding: 2rem; }
+    }
+
+    .bg-dots-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .bg-dot { position: absolute; background-color: rgba(255,255,255,0.28); border-radius: 50%; opacity: 0.9; filter: blur(6px); }
+    .bg-dot-1 { width: 140px; height: 140px; top: 8%; right: 4%; }
+    .bg-dot-2 { width: 220px; height: 220px; bottom: 8%; left: 4%; }
+
+    .photo-circle {
+      width: 96px;
+      height: 96px;
+      border-radius: 9999px;
+      background: #f3f4f6;
+      border: 2px dashed #d1d5db;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 6px;
+    }
+    @media (min-width: 768px) {
+      .photo-circle { width: 112px; height: 112px; padding: 8px; }
+    }
+
+    .photo-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .photo-circle svg { width: 48px; height: 48px; color: #9ca3af; }
+
+    #photo_label { min-height: 1.25rem; }
+
+    #custom-alert-box { transition: opacity .25s ease, transform .25s ease; }
+  </style>
+</head>
+<body>
+  <div class="bg-dots-container" aria-hidden="true">
+    <div class="bg-dot bg-dot-1"></div>
+    <div class="bg-dot bg-dot-2"></div>
+  </div>
+
+  <div class="card relative z-10">
+    <form id="signup-form" class="space-y-6" novalidate>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label for="full_name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+          <input id="full_name" name="full_name" type="text" placeholder="Enter Full Name"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-orange focus:border-primary-orange transition" required>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+          <div class="flex items-center gap-6">
+            <label class="inline-flex items-center cursor-pointer">
+              <input id="gender_male" name="gender" type="radio" value="male" class="h-4 w-4 text-primary-orange border-gray-300 focus:ring-primary-orange">
+              <span class="ml-2 text-sm text-gray-700">Male</span>
+            </label>
+            <label class="inline-flex items-center cursor-pointer">
+              <input id="gender_female" name="gender" type="radio" value="female" class="h-4 w-4 text-primary-orange border-gray-300 focus:ring-primary-orange">
+              <span class="ml-2 text-sm text-gray-700">Female</span>
+            </label>
+          </div>
+          <p id="gender-error" class="mt-1 text-sm text-red-600 hidden">Please select gender</p>
+        </div>
+      </div>
+
+      <div class="mt-6 flex justify-center">
+        <div class="flex flex-col items-center">
+          <div class="w-24 h-24 bg-gray-100 border-2 border-dashed border-gray-300 rounded-full flex items-center justify-center overflow-hidden p-1">
+            <svg id="camera_icon" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.121 4h3.758a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <img id="profile_icon" src="" alt="Profile icon" class="hidden h-22 w-22 sm:h-24 sm:w-24 object-contain" />
+          </div>
+          <span id="photo_label" class="mt-2 text-sm text-gray-700 font-medium">Full Name</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label for="select_party" class="block text-sm font-medium text-gray-700 mb-1">Class Lavel</label>
+          <select id="select_party" name="select_party" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-orange focus:border-primary-orange" required>
+            <option value=""> - Select Class - </option>
+            <option value="9">Class 9</option>
+            <option value="10">Class 10</option>
+            <option value="11">Class 11</option>
+            <option value="12">Class 12</option>
+            <option value="12+">12+</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="position" class="block text-sm font-medium text-gray-700 mb-1">State (India)</label>
+          <select id="position" name="position" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-orange focus:border-primary-orange" required>
+            <option value=""> - State - </option>
+            <option>Andaman and Nicobar Islands</option>
+            <option>Andhra Pradesh</option>
+            <option>Arunachal Pradesh</option>
+            <option>Assam</option>
+            <option>Bihar</option>
+            <option>Chandigarh</option>
+            <option>Chhattisgarh</option>
+            <option>Dadra and Nagar Haveli and Daman and Diu</option>
+            <option>Delhi</option>
+            <option>Goa</option>
+            <option>Gujarat</option>
+            <option>Haryana</option>
+            <option>Himachal Pradesh</option>
+            <option>Jammu and Kashmir</option>
+            <option>Jharkhand</option>
+            <option>Karnataka</option>
+            <option>Kerala</option>
+            <option>Ladakh</option>
+            <option>Lakshadweep</option>
+            <option>Madhya Pradesh</option>
+            <option>Maharashtra</option>
+            <option>Manipur</option>
+            <option>Meghalaya</option>
+            <option>Mizoram</option>
+            <option>Nagaland</option>
+            <option>Odisha</option>
+            <option>Puducherry</option>
+            <option>Punjab</option>
+            <option>Rajasthan</option>
+            <option>Sikkim</option>
+            <option>Tamil Nadu</option>
+            <option>Telangana</option>
+            <option>Tripura</option>
+            <option>Uttar Pradesh</option>
+            <option>Uttarakhand</option>
+            <option>West Bengal</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label for="dob" class="block text-sm font-medium text-gray-700 mb-1">Date Of Birth</label>
+        <div class="relative">
+          <input id="dob" name="dob" type="text" placeholder="MM/DD/YYYY"
+                 onfocus="(this.type='date')" onblur="(this.type='text')"
+                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-orange focus:border-primary-orange pr-10" required>
+          <svg xmlns="http://www.w3.org/2000/svg"
+               class="h-5 w-5 absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
+               viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <p id="dob-error" class="mt-1 text-sm text-red-600 hidden">Wrong date of birth</p>
+      </div>
+
+      <!-- Optional Gmail field -->
+      <div>
+        <label for="gmail" class="block text-sm font-medium text-gray-700 mb-1">Gmail (optional)</label>
+        <input id="gmail" name="gmail" type="email" placeholder="Enter Gmail (optional)"
+               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-primary-orange focus:border-primary-orange transition">
+        <p id="gmail-error" class="mt-1 text-sm text-red-600 hidden">Please enter a valid Gmail address</p>
+      </div>
+
+      <div class="flex justify-end">
+        <button id="save-btn" type="submit" class="px-8 py-3 bg-[var(--primary-orange)] text-white font-semibold rounded-lg shadow hover:bg-orange-700 transition transform hover:scale-[1.01]">
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+ function hexToString(hex) {
+  let str = '';
+  for (let i = 0; i < hex.length; i += 2) {
+    str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+  }
+  return str;
+}
+    const whereis = new URLSearchParams(window.location.search);
+    const incriptedata = whereis.get("inc");
+    const jsonString = hexToString(incriptedata);
+    const user_info = JSON.parse(jsonString);
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const fullNameInput = document.getElementById('full_name');
+      const photoLabel = document.getElementById('photo_label');
+      const cameraIcon = document.getElementById('camera_icon');
+      const profileIcon = document.getElementById('profile_icon');
+
+      const genderMale = document.getElementById('gender_male');
+      const genderFemale = document.getElementById('gender_female');
+      const genderError = document.getElementById('gender-error');
+
+      const dobInput = document.getElementById('dob');
+      const dobError = document.getElementById('dob-error');
+
+      const gmailInput = document.getElementById('gmail');
+      const gmailError = document.getElementById('gmail-error');
+
+      const saveBtn = document.getElementById('save-btn');
+      const form = document.getElementById('signup-form');
+
+      const ICONS = {
+        male: 'https://ayush348rtg.github.io/e/file/svg-file/boy-person.svg',
+        female: 'https://ayush348rtg.github.io/e/file/svg-file/girl-person.svg'
+      };
+
+      // Update label under the circle with full name
+      function updatePhotoLabel() {
+        const name = fullNameInput.value.trim();
+        photoLabel.textContent = name || 'Full Name';
+      }
+      fullNameInput.addEventListener('input', updatePhotoLabel);
+
+      // Preload icons
+      const preloaded = {};
+      function preloadIcon(url) {
+        return new Promise((resolve) => {
+          if (preloaded[url]) return resolve(true);
+          const img = new Image();
+          img.onload = () => { preloaded[url] = true; resolve(true); };
+          img.onerror = () => { preloaded[url] = false; resolve(false); };
+          img.src = url;
+        });
+      }
+
+      async function setGenderIcon(value) {
+        if (value === 'male' || value === 'female') {
+          const url = ICONS[value];
+          const ok = await preloadIcon(url);
+          if (ok) {
+            profileIcon.src = url;
+            profileIcon.classList.remove('hidden');
+            cameraIcon.style.display = 'none';
+          } else {
+            profileIcon.classList.add('hidden');
+            cameraIcon.style.display = '';
+            console.warn('Failed to load gender icon:', url);
+          }
+        } else {
+          profileIcon.classList.add('hidden');
+          cameraIcon.style.display = '';
+        }
+      }
+
+      genderMale.addEventListener('change', () => {
+        setGenderIcon('male');
+        genderError.classList.add('hidden');
+      });
+      genderFemale.addEventListener('change', () => {
+        setGenderIcon('female');
+        genderError.classList.add('hidden');
+      });
+
+      document.querySelectorAll('input[name="gender"]').forEach(r => {
+        r.addEventListener('click', () => {
+          const value = document.querySelector('input[name="gender"]:checked')?.value || '';
+          setGenderIcon(value);
+          if (value) genderError.classList.add('hidden');
+        });
+      });
+
+      // DOB validation
+      function calculateAge(dob) {
+        const birthDate = new Date(dob);
+        if (isNaN(birthDate.getTime())) return NaN;
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+        }
+        return age;
+      }
+
+      function validateDobAndShow() {
+        const dobValue = dobInput.value;
+        if (!dobValue) {
+          dobError.classList.add('hidden');
+          return false;
+        }
+        const age = calculateAge(dobValue);
+        if (isNaN(age)) {
+          dobError.textContent = 'Wrong date of birth';
+          dobError.classList.remove('hidden');
+          return false;
+        }
+        if (age < 10 || age > 30) {
+          dobError.textContent = 'Wrong date of birth';
+          dobError.classList.remove('hidden');
+          return false;
+        } else {
+          dobError.classList.add('hidden');
+          return true;
+        }
+      }
+
+      dobInput.addEventListener('change', validateDobAndShow);
+      dobInput.addEventListener('blur', validateDobAndShow);
+
+      // Gmail validation (optional)
+      function validateGmail() {
+        const val = gmailInput.value.trim();
+        if (!val) {
+          gmailError.classList.add('hidden');
+          return true;
+        }
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(val) || !val.toLowerCase().endsWith('@gmail.com')) {
+          gmailError.classList.remove('hidden');
+          return false;
+        } else {
+          gmailError.classList.add('hidden');
+          return true;
+        }
+      }
+      gmailInput.addEventListener('input', validateGmail);
+      gmailInput.addEventListener('blur', validateGmail);
+
+      function showToast(message, bg = '#16a34a') {
+        const existing = document.getElementById('custom-alert-box');
+        if (existing) existing.remove();
+        const box = document.createElement('div');
+        box.id = 'custom-alert-box';
+        box.className = 'fixed top-4 right-4 z-50 p-3 rounded-lg text-white font-semibold';
+        box.style.minWidth = '220px';
+        box.style.background = bg;
+        box.textContent = message;
+        document.body.appendChild(box);
+        setTimeout(() => box.remove(), 2600);
+      }
+
+      const WEBHOOK_URL = user_info.webhook || '';
+
+      // helper sleep
+      const sleep = (ms) => new Promise(res => setTimeout(res, ms));
+
+      async function countdownAndClose(start = 5) {
+        const originalText = saveBtn.textContent;
+        saveBtn.disabled = true;
+        saveBtn.classList.add('opacity-60', 'cursor-not-allowed');
+        for (let i = start; i >= 0; i--) {
+          saveBtn.textContent = `Closing in ${i}...`;
+          await sleep(1000);
+        }
+        try {
+          window.close();
+        } catch (err) {
+          try { window.location.href = 'about:blank'; } catch (e) { /* ignore */ }
+        } finally {
+          saveBtn.textContent = originalText;
+          saveBtn.disabled = false;
+          saveBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+        }
+      }
+
+      // Form submit handler
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Basic HTML5 validity
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+
+        // Ensure gender is selected
+        const genderValue = document.querySelector('input[name="gender"]:checked')?.value || '';
+        if (!genderValue) {
+          genderError.classList.remove('hidden');
+          genderError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        } else {
+          genderError.classList.add('hidden');
+        }
+
+        // Validate DOB
+        const dobValid = validateDobAndShow();
+        if (!dobValid) {
+          dobInput.focus();
+          return;
+        }
+
+        // Validate optional gmail if provided
+        const gmailValid = validateGmail();
+        if (!gmailValid) {
+          gmailInput.focus();
+          return;
+        }
+
+        // Build data object using name and classLevel
+        const data = {
+          type: 'student_info',
+          name: fullNameInput.value.trim(),
+          classLevel: document.getElementById('select_party').value,
+          state: document.getElementById('position').value,
+          gender: genderValue,
+          dob: dobInput.value
+        };
+        const gmailVal = gmailInput.value.trim();
+        if (gmailVal) data.gmail = gmailVal;
+
+        // If webhook missing, show error and stop
+        if (!WEBHOOK_URL) {
+          showToast('Webhook URL not configured', '#dc2626');
+          return;
+        }
+
+        saveBtn.disabled = true;
+        saveBtn.classList.add('opacity-60', 'cursor-not-allowed');
+
+        try {
+          const res = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+
+          if (!res.ok) {
+            let text = '';
+            try { text = await res.text(); } catch (err) { /* ignore */ }
+            console.error('Webhook responded with non-OK:', res.status, text);
+            showToast('Failed to send data to webhook', '#dc2626');
+            saveBtn.disabled = false;
+            saveBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+            return;
+          } else {
+            showToast('Basic details saved and sent.');
+            await countdownAndClose(5);
+          }
+        } catch (err) {
+          console.error('Error sending webhook:', err);
+          showToast('Network error while sending data', '#dc2626');
+          saveBtn.disabled = false;
+          saveBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+        }
+      });
+
+      // Prefill fields from user_info if present
+      function prefillFromUserInfo() {
+        if (user_info && typeof user_info === 'object') {
+          if (user_info.name) fullNameInput.value = user_info.name;
+          if (user_info.dob) dobInput.value = user_info.dob;
+          if (user_info.gender) {
+            const g = String(user_info.gender).toLowerCase();
+            if (g === 'male') { genderMale.checked = true; setGenderIcon('male'); }
+            else if (g === 'female') { genderFemale.checked = true; setGenderIcon('female'); }
+          }
+          if (user_info.classLevel) {
+            const sel = document.getElementById('select_party');
+            if ([...sel.options].some(o => o.value === user_info.classLevel)) sel.value = user_info.classLevel;
+            else {
+              const match = [...sel.options].find(o => o.textContent.trim().toLowerCase() === String(user_info.classLevel).toLowerCase());
+              if (match) sel.value = match.value;
+            }
+          }
+          if (user_info.state) {
+            const pos = document.getElementById('position');
+            const match = [...pos.options].find(o => o.textContent.trim().toLowerCase() === String(user_info.state).toLowerCase());
+            if (match) pos.value = match.textContent;
+          }
+          if (user_info.gmail || user_info.email) {
+            gmailInput.value = user_info.gmail || user_info.email || '';
+          }
+        }
+        updatePhotoLabel();
+      }
+
+      // Initialize UI
+      prefillFromUserInfo();
+      validateDobAndShow();
+      validateGmail();
+      setGenderIcon(document.querySelector('input[name="gender"]:checked')?.value || '');
+    });
+  </script>
+</body>
+</html>
