@@ -164,8 +164,10 @@ const safeZones = [
   document.getElementById("class12_physics_chap"),
   document.getElementById("class12_chemistry_chap"),
   document.getElementById("class12_biology_chap"),
+  document.getElementById("class12_maths_chap"),
   document.getElementById("class12_physics_formulaSheet_chap"),
-  document.getElementById("class12_chemistry_formulaSheet_chap")
+  document.getElementById("class12_chemistry_formulaSheet_chap"),
+  document.getElementById("class12_maths_formulaSheet_chap")
 ];
 
 document.addEventListener("click", (event) => {
@@ -183,4 +185,3 @@ document.addEventListener("click", (event) => {
     selectedIndex = null;
   }
 });
-
