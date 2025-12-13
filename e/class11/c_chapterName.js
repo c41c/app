@@ -44,7 +44,8 @@ const specialCodes = ["note11p1", "note11b1", "formula11p1", "formula11c1"];
 if (specialCodes.includes(chapName_code)) {
   // Example: https://c41c.github.io/app/e/class11/p11n/?inc=63686170746
   box.addEventListener("click", () => {
-    window.location.href = web_url;
+    window.open(web_url, '_blank');
+    //window.location.href = web_url;
   });
   return;
 }
