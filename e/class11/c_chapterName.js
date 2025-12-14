@@ -30,7 +30,7 @@ document.querySelectorAll(".chapName_chapter_box").forEach(box => {
  
  let chap_data = {
     "chapter_index": `chapter${chap_index}`,
-    "ex_time": current_is + 10
+    "ex_time": current_is + 259200 //3 days
  }
  let incript_chap_data_json = JSON.stringify(chap_data);
  const incript_chap_data = stringToHex(incript_chap_data_json);
