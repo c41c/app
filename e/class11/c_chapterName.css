@@ -29,7 +29,7 @@
   display: none; /* hidden initially */
   align-items: center;
   justify-content: center;
-  font-family: Arial, sans-serif;
+  font-family: "Arial", sans-serif;
 }
 /* Button styles */
 .chapName_conform_container button {
@@ -128,7 +128,8 @@
 .chapName_sub_from {
   display: flex;
   justify-content: center;
-  background-color: #f4f6f9;
+  align-items: center;
+  background-color: #f4f6f9; /*f4f6f9*/
   padding: 0;
   font-family: Poppins, sans-serif;
   font-size: 16px;
@@ -139,11 +140,46 @@
   color: white;
   padding: 5px 20px;                  /* space inside the box */
   border-radius: 60px;
-  font-family: Poppins, sans-serif;
+  font-family: 'Poppins', sans-serif;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   margin: 20px;
 }
 .chapName_spacebox{
   height: 100px;
   background-color: white;
+}
+
+
+.bck_circle-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #3498db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+  
+  /* Fixed position */
+  z-index: 1000;
+  opacity: 0.9;
+}
+.bck_circle-btn:focus,
+.bck_circle-btn:active {
+  outline: none;
+  border-radius: 50%;
+}
+.bck_circle-btn.bck_hidden {
+  opacity: 0;
+  pointer-events: none; /* prevent clicks when hidden */
+}
+.bck_circle-btn:hover {
+  background-color: #ddd;
+}
+.bck_circle-btn svg {
+  width: 24px;
+  height: 24px;
+  stroke: #333;
 }
