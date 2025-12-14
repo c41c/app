@@ -31,7 +31,7 @@ const chap_index = box.getAttribute("chap_index");
  
 let chap_data = {
     "chapter_index": `chapter${chap_index}`,
-    "ex_time": current_is + 10
+    "ex_time": current_is + 259200 //3 days
  }
  
 let incript_chap_data_json = JSON.stringify(chap_data);
