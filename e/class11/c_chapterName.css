@@ -187,6 +187,7 @@
 .price_box_contain {
   background-color: #f4f6f9;
   padding-bottom: 3vh;
+  padding: auto 20px;
 }
 .priceBox {
   display: flex;
