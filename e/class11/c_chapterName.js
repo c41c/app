@@ -18,7 +18,7 @@ function stringToHex(str) {
   }
   return hex;
 }
-const current_is = Math.floor(Date.now() / 1000);
+const current_is = student_Data.expire_time;
  const confirmContainer = document.getElementById("confirmContainer");
  const sendBtn = document.getElementById("sendBtn");
  let selectedCode = null;
@@ -30,7 +30,7 @@ document.querySelectorAll(".chapName_chapter_box").forEach(box => {
  
  let chap_data = {
     "chapter_index": `chapter${chap_index}`,
-    "ex_time": current_is + 259200 //3 days
+    "ex_time": current_is + 10
  }
  let incript_chap_data_json = JSON.stringify(chap_data);
  const incript_chap_data = stringToHex(incript_chap_data_json);
@@ -44,7 +44,6 @@ const specialCodes = ["note11p1", "note11b1", "formula11p1", "formula11c1"];
 if (specialCodes.includes(chapName_code)) {
   // Example: https://c41c.github.io/app/e/class11/p11n/?inc=63686170746
   box.addEventListener("click", () => {
-    //window.open(web_url, '_blank');
     window.location.href = web_url;
   });
   return;
@@ -102,7 +101,7 @@ function findKeyForCode(chapName_code) {
      box.addEventListener("click", () => {
        selectedCode = chapName_code;
        selectedIndex = chap_index;
-       sendBtn.textContent = `Unlock Chapter ${chap_index}`;
+       sendBtn.textContent = `Unlock All/Half Chapters with Chapter ${chap_index} in Bot`;
        confirmContainer.style.display = "flex";
      });
    } else {
@@ -138,7 +137,6 @@ function findKeyForCode(chapName_code) {
      }
    }
  });
- 
  // Send button handler
  sendBtn.addEventListener("click", handleSend);
  
@@ -162,9 +160,11 @@ function findKeyForCode(chapName_code) {
      });
  }
  
- // Close confirmation box when clicking outside the section
+
+    
+ /*/ Close confirmation box when clicking outside the section
 const safeZones = [
-  document.getElementById("class11_physics_chap"),
+  document.getElementById("out_of_name_contain"),
   document.getElementById("class11_chemistry_chap"),
   document.getElementById("class11_biology_chap"),
   document.getElementById("class11_physics_formulaSheet_chap"),
@@ -186,4 +186,69 @@ document.addEventListener("click", (event) => {
     selectedIndex = null;
   }
 });
+*/
+// Close confirmation box when clicking outside ANY chapter container
+document.addEventListener("click", (event) => {
+  const confirmBox = document.getElementById("confirmContainer");
+  if (confirmBox && confirmBox.style.display === "flex") {
+    const isInsideContainer = event.target.closest(".chapName_container");
+    const isInsideConfirmBox = confirmBox.contains(event.target);
+    if (!isInsideContainer && !isInsideConfirmBox) {
+      confirmBox.style.display = "none";
+      selectedCode = null;
+      selectedIndex = null;
+    }
+  }
+});
 
+ // Insert JSON data into box chaper pricing data
+  document.getElementById("priceBox_p11n").innerHTML = `
+    <div class="price_bo_title">
+      Unlock All &#8377;${priceData.p11n_all}
+      (Save ${priceData.p11n_saved}%)
+    </div>
+    <div>
+      Half: &#8377;${priceData.p11n_per_chapter_Half} /chapter
+      (Total &#8377;${priceData.p11n_total})
+    </div>
+  `;
+    document.getElementById("priceBox_c11n").innerHTML = `
+    <div class="price_bo_title">
+      Unlock All &#8377;${priceData.c11n_all}
+      (Save ${priceData.c11n_saved}%)
+    </div>
+    <div>
+      Half: &#8377;${priceData.c11n_per_chapter_Half} /chapter
+      (Total &#8377;${priceData.c11n_total})
+    </div>
+  `;
+    document.getElementById("priceBox_b11n").innerHTML = `
+    <div class="price_bo_title">
+      Unlock All &#8377;${priceData.b11n_all}
+      (Save ${priceData.b11n_saved}%)
+    </div>
+    <div>
+      Half: &#8377;${priceData.b11n_per_chapter_Half} /chapter
+      (Total &#8377;${priceData.b11n_total})
+    </div>
+  `;
+    document.getElementById("priceBox_p11fs").innerHTML = `
+    <div class="price_bo_title">
+      Unlock All &#8377;${priceData.p11fs_all}
+      (Save ${priceData.p11fs_saved}%)
+    </div>
+    <div>
+      Half: &#8377;${priceData.p11fs_per_formula_Half} /formula
+      (Total &#8377;${priceData.p11fs_total})
+    </div>
+  `;
+  document.getElementById("priceBox_c11fs").innerHTML = `
+    <div class="price_bo_title">
+      Unlock All &#8377;${priceData.c11fs_all}
+      (Save ${priceData.c11fs_saved}%)
+    </div>
+    <div>
+      Half: &#8377;${priceData.c11fs_per_formula_Half} /formula
+      (Total &#8377;${priceData.c11fs_total})
+    </div>
+  `;
