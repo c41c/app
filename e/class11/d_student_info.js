@@ -46,7 +46,7 @@
     fetch(student_Data.webhook, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ type:'suggestion', text_msg: msg })
+        body: JSON.stringify({ type:'suggestion', text_msg: msg ,  info:{name: student_Data.name, id: student_Data.id, class: student_Data.classLevel} })
       })
       .then(() => {
         status.textContent = "Message sent successfully ✅";
