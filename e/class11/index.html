@@ -367,8 +367,9 @@ main {
   <div class="chapName_chapter_index">Chapter 14</div>
   <div class="chapName_chapter_name">Waves</div>
 </div>
-
-
+</div>
+<div class="price_box_contain">
+<div id="priceBox_p11n" class="priceBox"></div>
 </div>
 <div class="chapName_spacebox"></div>
 </section>
@@ -422,6 +423,9 @@ main {
 </div>
 
 </div>
+<div class="price_box_contain">
+<div id="priceBox_c11n" class="priceBox"></div>
+</div>
   <div class="chapName_spacebox"></div>
 </section>
 
@@ -441,7 +445,7 @@ main {
   </svg>
 </button>
   </div>
-  <div class="chapName_container" data_subject="b11n">
+  <div class="chapName_container" data_subject="b11n" id= "out_of_name_contain">
     <div class="chapName_chapter_box" chap_code="note11b1" chap_index="1">
   <div class="chapName_chapter_index">Chapter 1</div>
   <div class="chapName_chapter_name">The Living World</div>
@@ -518,8 +522,10 @@ main {
   <div class="chapName_chapter_index">Chapter 19</div>
   <div class="chapName_chapter_name">Chemical Coordination and Integration</div>
 </div>
-
   </div>
+  <div class="price_box_contain">
+<div id="priceBox_b11n" class="priceBox"></div>
+</div>
   <div class="chapName_spacebox"></div>
 </section>
 
@@ -593,6 +599,9 @@ main {
   <div class="chapName_chapter_name">Waves</div>
 </div>
   </div>
+  <div class="price_box_contain">
+<div id="priceBox_p11fs" class="priceBox"></div>
+</div>
   <div class="chapName_spacebox"></div>
 </section>
 
@@ -645,6 +654,9 @@ main {
   <div class="chapName_chapter_name">Hydrocarbons</div>
 </div>
   </div>
+  <div class="price_box_contain">
+<div id="priceBox_c11fs" class="priceBox"></div>
+</div>
   <div class="chapName_spacebox"></div>
 </section>
 <!-- Confirmation box -->
@@ -661,7 +673,6 @@ main {
 
 
 <script>
-
  function hexToString(hex) {
    let str = '';
    for (let i = 0; i < hex.length; i += 2) {
@@ -673,6 +684,39 @@ main {
  const incriptedata = whereis.get("inc") || '7b22776562686f6f6b223a2268747470733a5c2f5c2f6170692e74656c65626f7463726561746f722e636f6d5c2f6e65772d776562686f6f6b3f646174613d67414141414142704b595941374f554f6d583853766f464a3041546459563049794d436f455a45775745535674363966787a734a4159565537736678446143624570633864324276542d4a6749474c7153744a7236655372304569327949464a77306b4e4b4868304d4a2d5550584e4f487a413661485844423050446e3561704b6f4664696c696e3553434a4c66514839357a4237497836525467614234314a49564d66705a357263455f305971335257435a35643949737141334b6c4d5650393438434473304b7a594c5a61787033643335674e76613731477167513377516b67253344253344222c226e616d65223a22556e6b6e6f776e222c22636c6173734c6576656c223a22436c617373205f205f222c2267656e646572223a226d616c65222c226964223a313131313131313131312c226578706972655f74696d65223a313736353536353030312c22756e6c6f636b6564223a7b7d7d';
  const jsonString = hexToString(incriptedata);
  const student_Data = JSON.parse(jsonString);
+
+let priceData = {
+  // class 11 Physics notes
+  p11n_all: 56,
+  p11n_total: 70,
+  p11n_saved: 20,
+  p11n_per_chapter_All: 4,
+  p11n_per_chapter_Half: 5,
+  // class 11 Chemistry notes
+  c11n_all: 45,
+  c11n_total: 54,
+  c11n_saved: 16.7,
+  c11n_per_chapter_All: 5,
+  c11n_per_chapter_Half: 6,
+  
+  b11n_all: 80,
+  b11n_total: 100,
+  b11n_saved: 20,
+  b11n_per_chapter_All: 4,
+  b11n_per_chapter_Half: 5,
+  
+  p11fs_all: 15,
+  p11fs_total: 15,
+  p11fs_saved: 0,
+  p11fs_per_formula_All: 1,
+  p11fs_per_formula_Half: 1,
+  
+  c11fs_all: 18,
+  c11fs_total: 18,
+  c11fs_saved: 0,
+  c11fs_per_formula_All: 2,
+  c11fs_per_formula_Half: 2,
+};
 /*
  function hexToString(hex) {
    let str = '';
