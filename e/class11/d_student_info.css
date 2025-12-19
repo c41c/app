@@ -169,3 +169,27 @@
   align-items: center;
   justify-content: center;
 }
+
+
+/* Disable all interactions with images and SVGs */
+#std_student img, 
+#std_student svg {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  /* Prevents right-click and pointer interactions */
+  pointer-events: none; 
+}
+
+/* Ensure links still work even if icons are non-interactive */
+.std_icon_link {
+  pointer-events: auto !important;
+  -webkit-touch-callout: none;
+}
+
+/* Visual protection for the ID Box [cite: 2, 3] */
+#std_idBox {
+  user-select: none;
+  pointer-events: none;
+}
