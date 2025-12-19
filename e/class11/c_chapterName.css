@@ -185,10 +185,10 @@
 }
 
 .price_box_contain {
-  background-color: #f4f6f9;
-  padding-bottom: 3vh;
-  padding: auto 20px;
+  background-color: #f4f6f9; /* f4f6f9 */
+  padding: 0 20px 3vh; /* top 0, left/right 20px, bottom 3vh */
 }
+
 .priceBox {
   display: flex;
   flex-direction: column;
@@ -203,8 +203,15 @@
   font-size: 16px;
   line-height: 1.6;
   font-family: "Poppins", sans-serif;
-  margin: 0px auto;
+  margin: 0 auto; /* centers horizontally */
   color: #696969;
+  width: 100%; /* allow it to shrink on small screens */
+  box-sizing: border-box;
+  
+  user-select: none;          /* Standard */
+  -webkit-user-select: none;  /* Chrome, Safari */
+  -moz-user-select: none;     /* Firefox */
+  -ms-user-select: none; 
 }
 .price_bo_title {
   font-weight: bold;
