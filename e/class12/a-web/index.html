@@ -153,19 +153,7 @@
       <h1>Ezee Notes (Class 12)</h1>
       <div class="thumb_subject_container"> 
         <!-- physics -->
-<!-- 
-<div class="thumb_cover_card tumb_loading_card blue_1" id="card1" onclick="name_p_n_11()">
-  
-  <div class="overlay_cover_protect"></div>
-  <div class="thumb_first_shadow"></div>
-  <div class="thumb_second_shadow"></div>
-  <div class="thumb_third_shadow"></div>
-  <div class="thumb_title_up">Ezee Notes</div>
-  <div class="thumb_subject">Physics</div>
-  
-  <div class="bg_img_tumb_cl note_tumb_physics"></div>
-</div>
--->
+
         <div class="thumb_cover_card tumb_loading_card purple_3" id="card1" onclick="name_p_n_12()">
           <div class="thumb_first_shadow"></div>
           <div class="thumb_second_shadow"></div>
@@ -811,30 +799,17 @@
 
 
 <script>
-/*
-const student_Data = {
-webhook: "https://api.telebotcreator.com/new-webhook?data=gAAAAABpKYYA7OUOmX8SvoFJ0ATdYV0IyMCoEZEwWESVt69fxzsJAYVU7sfxDaCbEpc8d2BvT-JgIGLqStJr6eSr0Ei2yIFJw0kNKHh0MJ-UPXNOHzA6aHXDB0PDn5apKoFdilin5SCJLfQH95zB7Ix6RTgaB41JIVMfpZ5rcE_0Yq3RWCZ5d9IsqA3KlMVP948CDs0KzYLZaxp3d35gNva71GqgQ3wQkg%3D%3D",
-"name": "Ayush",
-classLevel: "Class 11",
-gender: "male",
-id: 1234567890,
-expire_time: 1765482064,
-unlocked: {
-'1765482064': ['formula11p1', 'formula11p2', 'formula11p3', 'formula11pa4', 'formula11p5', 'formula11p6', 'formula11p7', 'note11pa4', 'note12p2', 'note11c2']
-}
-};
-*/
- const student_Data = {
-webhook: "https://api.telebotcreator.com/new-webhook?data=gAAAAABpKYYA7OUOmX8SvoFJ0ATdYV0IyMCoEZEwWESVt69fxzsJAYVU7sfxDaCbEpc8d2BvT-JgIGLqStJr6eSr0Ei2yIFJw0kNKHh0MJ-UPXNOHzA6aHXDB0PDn5apKoFdilin5SCJLfQH95zB7Ix6RTgaB41JIVMfpZ5rcE_0Yq3RWCZ5d9IsqA3KlMVP948CDs0KzYLZaxp3d35gNva71GqgQ3wQkg%3D%3D",
-"name": "Ayush",
-classLevel: "Class 11",
-gender: "male",
-id: 1766560779,
-expire_time: 1767532191,
-unlocked: {
-'1767532191': ['formula11p1', 'formula11p2', 'formula11p3', 'formula11pa4', 'formula11p5', 'formula11p6', 'formula11p7', 'note11pa4', 'note12p2', 'note11c2']
-}
-};
+function hexToString(hex) {
+   let str = '';
+   for (let i = 0; i < hex.length; i += 2) {
+     str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+   }
+   return str;
+ }
+ const whereis = new URLSearchParams(window.location.search);
+ const incriptedata = whereis.get("inc") || '7b7d';
+ const jsonString = hexToString(incriptedata);
+ const student_Data = JSON.parse(jsonString);
 
 // JSON data
 let priceData = {
