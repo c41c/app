@@ -1,0 +1,255 @@
+main section h1{
+  font-size: 20px;        /* Control font size */
+  color: #000000;         /* Heading color */
+  margin-left: 0;      /* 15px from left */
+  padding-left: 10px;     /* Space between line & text */
+  border-left: 5px solid red; /* Big red line */
+  font-family: 'Poppins', sans-serif;
+  cursor: default;
+}
+
+
+/* Thumbnail strip */
+.thumb_subject_container {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 0;
+  margin-left: 0;
+  gap: 10px;
+  min-height: 185px;
+  background-color: white;
+
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+
+
+.thumb_cover_card {
+  --main-color: yellow;
+  flex: 0 0 auto;
+  width: 110px;
+  height: 150px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+}
+  .thumb_cover_card img.overlay {
+    position: relative;
+    z-index: 2;
+    background: transparent;
+  }
+  
+  .thumb_cover_card img.base {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0;
+  }
+
+
+.overlay_cover_protect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+}
+.thumb_formula_card {
+  --main-color: skyblue;
+  flex: 0 0 auto;
+  width: 110px;
+  height: 150px;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.thumb_formula_card img.overlay {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+}
+.thumb_formula_card img.base {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 0;
+}
+/*Disable Image Dragging*/
+img {
+  -webkit-user-drag: none; /* Safari/Chrome */
+  -khtml-user-drag: none;  /* Old Konqueror */
+  -moz-user-drag: none;    /* Firefox (partial support) */
+  -o-user-drag: none;      /* Opera */
+  user-drag: none;         /* Standard */
+}
+/* Loading shimmer */
+.tumb_loading_card {
+  background: #ddd;
+  position: relative;
+}
+.tumb_loading_card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Shadows hidden until show_card */
+.thumb_first_shadow,
+.thumb_second_shadow,
+.thumb_third_shadow {
+  display: none;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  pointer-events: none;
+}
+.thumb_second_shadow {
+  left: 6px;
+  transform: translateX(-50%);
+  width: 8px;
+  background: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.2), rgba(0,0,0,0));
+}
+.thumb_first_shadow {
+  left: 0;
+  transform: translateX(-50%);
+  width: 3px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+}
+.thumb_third_shadow {
+  left: 9px;
+  transform: translateX(-50%);
+  width: 5px;
+  background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.2), rgba(255,255,255,0));
+}
+.thumb_title_up {
+  position: absolute;
+  top: 12px;
+  left: 2%;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  display: none;
+  font-family: 'Poppins', sans-serif;
+}
+.thumb_subject {
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--main-color);
+  display: none;
+  font-family: 'Poppins', sans-serif;
+}
+.formulasheet_text {
+  position: absolute;
+  bottom: 15px;
+  left: 4%;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--main-color);
+  display: none;
+}
+/*
+.thumb_image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 60px;
+  max-height: 60px;
+  display: none;
+}*/
+.thumb_image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 60px;
+  max-height: 60px;
+  display: none;
+  pointer-events: none; 
+  -webkit-user-drag: none;
+}
+.bg_img_tumb_cl {
+  width: 50%;
+  aspect-ratio: 1 / 1;
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Show state */
+.show_card {
+  background: linear-gradient(160deg, var(--main-color) 45%, white 40%);
+}
+.show_formulacard {
+  background: linear-gradient(180deg, var(--main-color) 40%, white 40%);
+}
+
+.bg_img_tumb_cl_show {
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 100% auto;
+}
+.bg_img_tumb_cl_show{
+  display: block;
+}
+/*.bg_img_tumb_cl_show{
+  background-image: url("https://ayush348rtg.github.io/doc/tele/source/cover/physicss-N-covr-11.png");}*/
+.note_tumb_physics {background-image: url("https://ayush348rtg.github.io/doc/tele/source/cover/physicss-N-covr-11.png");}
+.note_tumb_chemistry {background-image: url("https://ayush348rtg.github.io/doc/tele/source/cover/chemistry-N-covr-11.png");}
+.note_tumb_biology {background-image: url("https://ayush348rtg.github.io/doc/tele/source/cover/biology-N-covr-11.png");}
+.formula_tumb_physics {background-image: url("https://ayush348rtg.github.io/doc/tele/source/cover/physicss-F-covr-11.png");}
+.formula_tumb_chemistry {background-image: url("https://ayush348rtg.github.io/doc/tele/source/cover/chemistry-F-covr-11.png");}
+/* Reveal content + shadows when show_card is active */
+.show_card .thumb_title_up,
+.show_card .thumb_subject,
+.show_card .thumb_image,
+.show_card .thumb_first_shadow,
+.show_card .thumb_second_shadow,
+.show_card .thumb_third_shadow {
+  display: block;
+}
+.show_formulacard .thumb_title_up,
+.show_formulacard .formulasheet_text,
+.show_formulacard .thumb_image,
+.show_formulacard .thumb_first_shadow,
+.show_formulacard .thumb_second_shadow,
+.show_formulacard .thumb_third_shadow {
+  display: block;
+}
+.blue_1  { --main-color: #5195d6; }
+.purple_1 { --main-color: #8b6be8; }
+.purple_2  { --main-color: #643a94; }
+.green_1{ --main-color: #4abf6e; }
+.green_2  { --main-color: #319377; }

@@ -1,0 +1,47 @@
+/*☢️☢️☢️floating box */
+/* Floating bottom box */
+.floating_box {
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #351757;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  display: flex;
+  gap: 15px;               /* space between icons */
+  padding: 0 15px;          /* horizontal padding only */
+  height: 50px;             /* 👈 fixed height */
+  z-index: 98;
+  align-items: center;      /* center items vertically */
+  width: auto;              /* 👈 width adjusts automatically */
+}
+/* Icon container */
+.floating_box span {
+  cursor: pointer;
+  display: flex;             /* centers SVG inside */
+  justify-content: center;
+  align-items: center;
+  width: 36px;/* circle size slightly smaller than box height */
+  height: 36px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  color: white;              /* default icon color */
+  -webkit-tap-highlight-color: transparent; /*Remove mobile tap highlight*/
+}
+
+/* SVG size */
+.floating_box span svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;        /* inherits color */
+}
+
+/* Active icon (highlighted circle) */
+.floating_box span.active {
+  background: #4E2778;
+  border: 2px solid #EE82EE;
+  color: white;
+  box-shadow: 0 0 6px rgba(0,0,0,0.3);
+}

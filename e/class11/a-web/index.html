@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EzeeMe Notes</title>
+  
+  <meta name="robots" content="noarchive,noimageindex">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Stack+Sans+Notch:wght@200..700&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="a_header.css">
+  <script src="a_header.js" defer></script>
+  <link rel="stylesheet" href="b_floating_box.css">
+  <link rel="stylesheet" href="c_chapterName.css">
+  <script src="c_chapterName.js" defer></script>
+  <link rel="stylesheet" href="d_student_info.css">
+  <script src="d_student_info.js" defer></script>
+  <link rel="stylesheet" href="e_thumbnail.css">
+  <script src="e_thumbnail.js" defer></script>
+
+
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  header {
+    background: #351757;
+    color: white;
+    height: 200px;
+    position: relative;  
+  }
+
+  main {
+    padding: 10px;
+    background-color: white;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+  }
+  @media print {
+    body { display: none !important; }
+    html { display: none !important; }
+  }
+  
+.coming_soon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  font-size: 80%;
+  margin-top: 20%;
+}
+.content_section {
+  display: none;
+}
+.content_section.active {
+  display: block;
+}
+.expire_text{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  letter-spacing: 3px;
+  z-index: 2000;
+  font-family: "Stack Sans Notch", sans-serif;
+  font-weight: 700;
+  font-size: 3vh;
+  height: 60vh;
+}
+.adding_soon_text{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  z-index: 2000;
+  font-family: "Stack Sans Notch", sans-serif;
+  font-weight: 700;
+  font-size: 3vh;
+  height: 60vh;
+}
+/* Optional: block printing */
+@media print {
+  body { display: none !important; }
+}
+  </style>
+</head>
+<body>
+ <!-- 🅰️ header 🅰️ -->
+  <header> 
+  <div class="head_logo_icon_container_class" onclick="toggleMenu()">
+    <div class="head_class_options_icon_class">
+      <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M20 6H10m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4m16 6h-2m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4m16 6H10m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4"/>
+      </svg>
+    </div>
+    <div class="head_site_name_cl"> <span style="color:#EE82EE;">Ezee</span>&nbsp;Notes </div>
+  </div>
+  
+  <div style="display:flex; justify-content:center; align-items:center; height:100%; width:100%;">
+      <h4>-</h4>
+        <div id="head_typingText" style="font-size:18px; font-weight:bold; color:white; white-space:nowrap; overflow:hidden; cursor: default;"></div>
+    <h4>-</h4>
+  </div>
+  </header>
+
+  
+<!-- Side Menu -->
+<div class="head_side_menu" id="head_sideMenu">
+  <h2>Select a class</h2>
+  <a class="head_menu_option" id="menu_class_11">
+    <div class="head_menu_title">Class 11 - Science</div>
+    <div class="head_menu_subtitle">Boards + Competitive Exams</div>
+  </a>
+  <a class="head_menu_option" onclick="redirectWithQuery('https://c41c.github.io/app/e/class12/')">
+    <div class="head_menu_title">Class 12 - Science</div>
+    <div class="head_menu_subtitle">Boards + Competitive Exams</div>
+  </a>
+</div>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
+
+
+<!-- Floating Bottom Box -->
+<div class="floating_box" id="floating_box_id">
+  
+  <span id="homeIcon" onclick="showHome()" class="floating_box_icons">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25"><path d="M23 9.99V22a2.006 2.006 0 0 1-2 2h-6v-8h-5v8H4a2.006 2.006 0 0 1-2-2V9.99a1.999 1.999 0 0 1 .79-1.59L12.5 1l9.71 7.4A1.999 1.999 0 0 1 23 9.99z" style="fill:#FFFFFF"/></svg>
+  </span>
+
+<span id="practiceIcon" onclick="showPractice()">
+    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill=#FFFFFF viewBox="0 0 24 24">
+  <path fill-rule="evenodd" d="M11 4.717c-2.286-.58-4.16-.756-7.045-.71A1.99 1.99 0 0 0 2 6v11c0 1.133.934 2.022 2.044 2.007 2.759-.038 4.5.16 6.956.791V4.717Zm2 15.081c2.456-.631 4.198-.829 6.956-.791A2.013 2.013 0 0 0 22 16.999V6a1.99 1.99 0 0 0-1.955-1.993c-2.885-.046-4.76.13-7.045.71v15.081Z" clip-rule="evenodd"/>
+</svg></span>
+
+<span id="studentIcon" onclick="showStudentInfo()">
+    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill=#FFFFFF viewBox="0 0 24 24">
+  <path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/>
+</svg></span>
+</div>
+
+
+<!-- Main Content -->
+<main> 
+<!-- Home sections class11-->
+<section id="subject_list_main" class="content_section active">
+  <h1>Ezee Notes (Class 11)</h1>
+<div class="thumb_subject_container">
+<!-- physics -->
+<!-- 
+<div class="thumb_cover_card tumb_loading_card blue_1" id="card1" onclick="name_p_n_11()">
+  <div class="overlay_cover_protect"></div>
+<div class="thumb_first_shadow"></div>
+<div class="thumb_second_shadow"></div>
+<div class="thumb_third_shadow"></div>
+<div class="thumb_title_up">Ezee Notes</div>
+<img class="thumb_image overlay"
+src="https://ayush348rtg.github.io/doc/tele/source/cover/physicss-N-covr-11.png"
+alt="Cover Image"/>
+  <img class="base"
+    src="https://res.cloudinary.com/durzipdbq/image/upload/v1765891255/noughty_iyzt9l.jpg"
+    alt="Protected"
+  />
+<div class="thumb_subject">Physics</div>
+</div>
+-->
+<div class="thumb_cover_card tumb_loading_card blue_1" id="card1" onclick="name_p_n_11()">
+  
+  <div class="overlay_cover_protect"></div>
+<div class="thumb_first_shadow"></div>
+<div class="thumb_second_shadow"></div>
+<div class="thumb_third_shadow"></div>
+<div class="thumb_title_up">Ezee Notes</div>
+<div class="thumb_subject">Physics</div>
+
+<div class="bg_img_tumb_cl note_tumb_physics" ></div>
+</div>
+
+<!-- Chemistry -->
+<div class="thumb_cover_card tumb_loading_card purple_1" id="card1" onclick="name_c_n_11()">
+<div class="thumb_second_shadow"></div>
+<div class="thumb_third_shadow"></div>
+<div class="thumb_title_up">Ezee Notes</div>
+<div class="bg_img_tumb_cl note_tumb_chemistry" ></div>
+<div class="thumb_subject">Chemistry</div>
+</div>
+<!-- Bio -->
+<div class="thumb_cover_card tumb_loading_card green_1" id="card1" onclick="name_b_n_11()">
+<div class="thumb_first_shadow"></div>
+<div class="thumb_second_shadow"></div>
+<div class="thumb_third_shadow"></div>
+<div class="thumb_title_up">Ezee Notes</div>
+<div class="bg_img_tumb_cl note_tumb_biology" ></div>
+<div class="thumb_subject">Biology</div>
+</div>
+</div>
+  
+<h1>Formula Sheets (Class 11)</h1>
+<div class="thumb_subject_container">
+<!-- physics -->
+  <div class="thumb_formula_card tumb_loading_card purple_2" id="card1" onclick="name_p_fs_11()">
+    
+    <div class="thumb_first_shadow"></div>
+      <div class="thumb_second_shadow"></div>
+      <div class="thumb_third_shadow"></div>
+      <div class="thumb_title_up">physics</div>
+      <div class="bg_img_tumb_cl formula_tumb_physics" ></div>
+      <div class="formulasheet_text">Formula Sheets</div>
+    </div>
+  <!-- Chemistry -->
+    <div class="thumb_formula_card tumb_loading_card green_2" id="card1" onclick="name_c_fs_11()">
+      <div class="thumb_first_shadow"></div>
+      <div class="thumb_second_shadow"></div>
+      <div class="thumb_third_shadow"></div>
+      <div class="thumb_title_up">Chemistry</div>
+      <div class="bg_img_tumb_cl formula_tumb_chemistry" ></div>
+      <div class="formulasheet_text">Formula Sheets</div>
+    </div>
+</div>
+</section>
+
+ <!-- 〽️〽️Class 12 content〽️〽️  -->
+    <section id="class12" class="content_section">
+      <h2>Class 12</h2>
+      <p>Welcome to Class 12. This section covers advanced topics preparing you for boards and entrance exams.</p>
+    </section>
+
+    <!-- Practice Paper -->
+    <section id="practice" class="content_section">
+      <div class="coming_soon">
+        <h2>Coming soon...</h2>
+      </div>
+    </section>
+
+<!-- Student Info -->
+<section id="std_student" class="content_section">
+  <div class="std_profile_container">
+    <div class="std_card">
+      <div class="std_header">
+  <div class="std_profile_group">
+    <!-- Avatar -->
+<div class="std_avatar_container">
+  <span class="std_avatar_image" style="-webkit-tap-highlight-color: transparent; outline: none; display: inline-block; width: 60px; height: 60px;"></span>
+  <div class="std_status_dot"></div>
+</div>
+    <div class="std_info_text" style="cursor: default;">
+      <h2 id="std_profileName">Loading...</h2>
+      <span id="std_profileClass">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Menu Button -->
+  <div style="position:relative;">
+    <button class="std_menu_btn" style="-webkit-tap-highlight-color: transparent; outline: none;" id="texttest_id">⋮</button>
+    <!-- ID Box anchored below -->
+    <div id="std_idBox" style="
+      display:none;
+      position:absolute;
+      top:100%;   /* directly below button */
+      right:0;    /* align to right edge of button */
+      margin-top:0.25rem;
+      padding:0.3rem;
+      border:1px solid #ccc;
+      border-radius:0.5rem;
+      background:#f9f9f9;
+      font-family:Poppins,sans-serif;
+      font-size:0.775rem;
+      color:#2D1B4E;
+      font-weight:600;
+      white-space:nowrap;
+      z-index:10;
+    ">
+      <!-- ID will be injected here -->
+    </div>
+  </div>
+</div>
+
+
+<div class="std_action_area">
+  <button id="std_toggleBtn" onclick="std_toggleContact()" class="std_toggle_btn">
+    <span>Get In Touch with Us</span>
+    <span id="std_arrowIcon" class="std_arrow_icon" style="-webkit-tap-highlight-color: transparent; outline: none;">▲</span>
+  </button>
+</div>
+<div id="std_socialContainer" class="std_social_container">
+  <div class="std_social_list">
+    <!-- Gmail -->
+    <a class="std_icon_link">
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" id="std_gmail" enable-background="new 0 0 141.7 141.7" viewBox="0 0 141.7 141.7">
+    <path fill="#4285f4" d="M24.3,111.3h17.2V69.6L16.9,51.3V104C16.9,108,20.2,111.3,24.3,111.3z"></path>
+    <path fill="#34a853" d="M100.3,111.3h17.2c4.1,0,7.4-3.3,7.4-7.4V51.3l-24.5,18.4V111.3z"></path>
+    <path fill="#fbbc04" d="M100.3,37.8v31.9l24.5-18.4v-9.8c0-9.1-10.4-14.3-17.7-8.8L100.3,37.8z"></path>
+    <path fill="#ea4335" fill-rule="evenodd" d="M41.4,69.6V37.8l29.4,22.1l29.4-22.1v31.9L70.9,91.7L41.4,69.6z" clip-rule="evenodd"></path>
+    <path fill="#c5221f" d="M16.9,41.4v9.8l24.5,18.4V37.8l-6.9-5.2C27.3,27.2,16.9,32.4,16.9,41.4z"></path>
+  </svg>
+            </span>
+          </a>
+          <!-- Telegram -->
+<a href="https://t.me/Ezzeenotes" target="_blank" rel="noopener noreferrer" class="std_icon_link">
+  <span>
+    <svg xmlns="http://www.w3.org/2000/svg" id="std_telegram" viewBox="0 0 100 100">
+      <path fill="#1b92d1" d="M88.723,12.142C76.419,17.238,23.661,39.091,9.084,45.047c-9.776,3.815-4.053,7.392-4.053,7.392
+        s8.345,2.861,15.499,5.007c7.153,2.146,10.968-0.238,10.968-0.238l33.62-22.652c11.922-8.107,9.061-1.431,6.199,1.431
+        c-6.199,6.2-16.452,15.975-25.036,23.844c-3.815,3.338-1.908,6.199-0.238,7.63c6.199,5.246,23.129,15.976,24.082,16.691
+        c5.037,3.566,14.945,8.699,16.452-2.146c0,0,5.961-37.435,5.961-37.435c1.908-12.637,3.815-24.321,4.053-27.659
+        C97.307,8.804,88.723,12.142,88.723,12.142z"></path>
+    </svg>
+  </span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Message Box -->
+<div class="std_mess_box_container">
+<div class="std_mess_box" id="std_messageBox">
+  <h3 style="margin-top:0; color:#2D1B4E;">Send us suggestion/problem</h3>
+  <textarea id="std_messageInput" rows="4" class="std_text_box"></textarea>
+  <button id="std_sendMessageBtn" style="margin-top:0.5rem; background:#34a853; color:white; border:none; padding:0.5rem 1rem; border-radius:0.5rem; cursor:pointer;">Send</button>
+  <p id="std_statusMsg" style="font-size:0.875rem; color:#0077cc; margin-top:0.5rem;"></p>
+</div>
+</div>
+
+<!-- CLASS 11 PHYSICS CHAPTERS LIST -->
+<section id="class11_physics_chap" class="content_section">
+  <div class="chapName_sub_from">
+  <div class="chapName_sub_from_text">
+    Physics Notes (Class 11)
+  </div>
+  <button id="bck_backBtn" class="bck_circle-btn" onclick="showHome()">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7" />
+  </svg>
+</button>
+</div>
+<div class="chapName_container" data_subject="p11n">
+<div class="chapName_chapter_box" chap_code="note11p1" chap_index="1">
+  <div class="chapName_chapter_index">Chapter 1</div>
+  <div class="chapName_chapter_name">Units and Measurements</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11p2" chap_index="2">
+  <div class="chapName_chapter_index">Chapter 2</div>
+  <div class="chapName_chapter_name">Motion in Straight Line</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11p3" chap_index="3">
+  <div class="chapName_chapter_index">Chapter 3</div>
+  <div class="chapName_chapter_name">Motion in a Plane</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11p4" chap_index="4">
+  <div class="chapName_chapter_index">Chapter 4</div>
+  <div class="chapName_chapter_name">Laws of Motion</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11p5" chap_index="5">
+  <div class="chapName_chapter_index">Chapter 5</div>
+  <div class="chapName_chapter_name">Work Power and Energy</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11p6" chap_index="6">
+  <div class="chapName_chapter_index">Chapter 6</div>
+  <div class="chapName_chapter_name">System of Particles and Rotational Motion</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11p7" chap_index="7">
+  <div class="chapName_chapter_index">Chapter 7</div>
+  <div class="chapName_chapter_name">Gravitation</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11p8" chap_index="8">
+  <div class="chapName_chapter_index">Chapter 8</div>
+  <div class="chapName_chapter_name">Mechanical Properties of Solids</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11p9" chap_index="9">
+  <div class="chapName_chapter_index">Chapter 9</div>
+  <div class="chapName_chapter_name">Mechanical Properties of Fluids</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11pa0" chap_index="10">
+  <div class="chapName_chapter_index">Chapter 10</div>
+  <div class="chapName_chapter_name">Thermal Properties of Solids</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11pa1" chap_index="11">
+  <div class="chapName_chapter_index">Chapter 11</div>
+  <div class="chapName_chapter_name">Thermodynamics</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11pa2" chap_index="12">
+  <div class="chapName_chapter_index">Chapter 12</div>
+  <div class="chapName_chapter_name">Kinetic Theory of Gases</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11pa3" chap_index="13">
+  <div class="chapName_chapter_index">Chapter 13</div>
+  <div class="chapName_chapter_name">Oscillations</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11pa4" chap_index="14">
+  <div class="chapName_chapter_index">Chapter 14</div>
+  <div class="chapName_chapter_name">Waves</div>
+</div>
+</div>
+<div class="price_box_contain">
+<div id="priceBox_p11n" class="priceBox"></div>
+</div>
+<div class="chapName_spacebox"></div>
+</section>
+
+<!-- CLASS 11 CHEMISTRY CHAPTERS LIST -->
+<section id="class11_chemistry_chap" class="content_section">
+  <div class="chapName_sub_from">
+    <div class="chapName_sub_from_text">Chemistry Notes (Class 11)</div>
+    <button id="bck_backBtn" class="bck_circle-btn" onclick="showHome()">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7" />
+  </svg>
+</button>
+  </div>
+  <div class="chapName_container" data_subject="c11n">
+    <div class="chapName_chapter_box" chap_code="note11c1" chap_index="1">
+  <div class="chapName_chapter_index">Chapter 1</div>
+  <div class="chapName_chapter_name">Some Basic Concepts of Chemistry</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11c2" chap_index="2">
+  <div class="chapName_chapter_index">Chapter 2</div>
+  <div class="chapName_chapter_name">Atomic Structure</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11c3" chap_index="3">
+  <div class="chapName_chapter_index">Chapter 3</div>
+  <div class="chapName_chapter_name">Classification of Elements and Periodicity in Properties</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11c4" chap_index="4">
+  <div class="chapName_chapter_index">Chapter 4</div>
+  <div class="chapName_chapter_name">Chemical Bonding and Molecular Structure</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11c5" chap_index="5">
+  <div class="chapName_chapter_index">Chapter 5</div>
+  <div class="chapName_chapter_name">Chemical Thermodynamics</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11c6" chap_index="6">
+  <div class="chapName_chapter_index">Chapter 6</div>
+  <div class="chapName_chapter_name">Equillibrium</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11c7" chap_index="7">
+  <div class="chapName_chapter_index">Chapter 7</div>
+  <div class="chapName_chapter_name">Redox Reactions</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11c8" chap_index="8">
+  <div class="chapName_chapter_index">Chapter 8</div>
+  <div class="chapName_chapter_name">Organic Chemistry</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11c9" chap_index="9">
+  <div class="chapName_chapter_index">Chapter 9</div>
+  <div class="chapName_chapter_name">Hydrocarbons</div>
+</div>
+
+</div>
+<div class="price_box_contain">
+<div id="priceBox_c11n" class="priceBox"></div>
+</div>
+  <div class="chapName_spacebox"></div>
+</section>
+
+<!-- CLASS 11 BIO CHAPTERS LIST 
+<section id="class11_biology_chap" class="content_section">
+  <div class="adding_soon_text">
+    Adding soon..
+  </div>
+</section> -->
+<!-- CLASS 11 BIO CHAPTERS LIST -->
+<section id="class11_biology_chap" class="content_section">
+  <div class="chapName_sub_from">
+    <div class="chapName_sub_from_text">Biology Notes (Class 11)</div>
+    <button id="bck_backBtn" class="bck_circle-btn" onclick="showHome()">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7" />
+  </svg>
+</button>
+  </div>
+  <div class="chapName_container" data_subject="b11n" id= "out_of_name_contain">
+    <div class="chapName_chapter_box" chap_code="note11b1" chap_index="1">
+  <div class="chapName_chapter_index">Chapter 1</div>
+  <div class="chapName_chapter_name">The Living World</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11b2" chap_index="2">
+  <div class="chapName_chapter_index">Chapter 2</div>
+  <div class="chapName_chapter_name">Biological Classification</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11b3" chap_index="3">
+  <div class="chapName_chapter_index">Chapter 3</div>
+  <div class="chapName_chapter_name">Plant Kingdom</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11b4" chap_index="4">
+  <div class="chapName_chapter_index">Chapter 4</div>
+  <div class="chapName_chapter_name">Animal Kingdom</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11b5" chap_index="5">
+  <div class="chapName_chapter_index">Chapter 5</div>
+  <div class="chapName_chapter_name">Morphology of Flowering Plants</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11b6" chap_index="6">
+  <div class="chapName_chapter_index">Chapter 6</div>
+  <div class="chapName_chapter_name">Anatomy of Flowering Plants</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11b7" chap_index="7">
+  <div class="chapName_chapter_index">Chapter 7</div>
+  <div class="chapName_chapter_name">Structural Organisation in Animals</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11b8" chap_index="8">
+  <div class="chapName_chapter_index">Chapter 8</div>
+  <div class="chapName_chapter_name">Cell The Unit of Life</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11b9" chap_index="9">
+  <div class="chapName_chapter_index">Chapter 9</div>
+  <div class="chapName_chapter_name">Biomolecules</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11ba0" chap_index="10">
+  <div class="chapName_chapter_index">Chapter 10</div>
+  <div class="chapName_chapter_name">Cell Cycle and Cell Division</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11ba1" chap_index="11">
+  <div class="chapName_chapter_index">Chapter 11</div>
+  <div class="chapName_chapter_name">Photosynthesis in Higher Plants</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11ba2" chap_index="12">
+  <div class="chapName_chapter_index">Chapter 12</div>
+  <div class="chapName_chapter_name">Respiration in Plants</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11ba3" chap_index="13">
+  <div class="chapName_chapter_index">Chapter 13</div>
+  <div class="chapName_chapter_name">Plant Growth and Development</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11ba4" chap_index="14">
+  <div class="chapName_chapter_index">Chapter 14</div>
+  <div class="chapName_chapter_name">Breathing and Exchange of Gases</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11ba5" chap_index="15">
+  <div class="chapName_chapter_index">Chapter 15</div>
+  <div class="chapName_chapter_name">Body Fluids and Circulation</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11ba6" chap_index="16">
+  <div class="chapName_chapter_index">Chapter 16</div>
+  <div class="chapName_chapter_name">Excretory Products and their Elimination</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11ba7" chap_index="17">
+  <div class="chapName_chapter_index">Chapter 17</div>
+  <div class="chapName_chapter_name">Locomotion and Movement</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11ba8" chap_index="18">
+  <div class="chapName_chapter_index">Chapter 18</div>
+  <div class="chapName_chapter_name">Neural Control and Coordination</div>
+</div>
+<div class="chapName_chapter_box" chap_code="note11ba9" chap_index="19">
+  <div class="chapName_chapter_index">Chapter 19</div>
+  <div class="chapName_chapter_name">Chemical Coordination and Integration</div>
+</div>
+  </div>
+  <div class="price_box_contain">
+<div id="priceBox_b11n" class="priceBox"></div>
+</div>
+  <div class="chapName_spacebox"></div>
+</section>
+
+<!-- CLASS 11 PHYSICS FORMULA SHEET CHAPTERS LIST -->
+<section id="class11_physics_formulaSheet_chap" class="content_section">
+  <div class="chapName_sub_from">
+    <div class="chapName_sub_from_text">
+      Physics Formula Sheets (Class 11)
+    </div>
+    <button id="bck_backBtn" class="bck_circle-btn" onclick="showHome()">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7" />
+  </svg>
+</button>
+  </div>
+  <div class="chapName_container" data_subject="p11fs">
+<div class="chapName_chapter_box" chap_code="formula11p1" chap_index="1">
+  <div class="chapName_chapter_index">Chapter 1</div>
+  <div class="chapName_chapter_name">Units and Measurements</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11p2" chap_index="2">
+  <div class="chapName_chapter_index">Chapter 2</div>
+  <div class="chapName_chapter_name">Motion in Straight Line</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11p3" chap_index="3">
+  <div class="chapName_chapter_index">Chapter 3</div>
+  <div class="chapName_chapter_name">Motion in a Plane</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11p4" chap_index="4">
+  <div class="chapName_chapter_index">Chapter 4</div>
+  <div class="chapName_chapter_name">Laws of Motion</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11p5" chap_index="5">
+  <div class="chapName_chapter_index">Chapter 5</div>
+  <div class="chapName_chapter_name">Work Power and Energy</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11p6" chap_index="6">
+  <div class="chapName_chapter_index">Chapter 6</div>
+  <div class="chapName_chapter_name">System of Particles and Rotational Motion</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11p7" chap_index="7">
+  <div class="chapName_chapter_index">Chapter 7</div>
+  <div class="chapName_chapter_name">Gravitation</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11p8" chap_index="8">
+  <div class="chapName_chapter_index">Chapter 8</div>
+  <div class="chapName_chapter_name">Mechanical Properties of Solids</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11p9" chap_index="9">
+  <div class="chapName_chapter_index">Chapter 9</div>
+  <div class="chapName_chapter_name">Mechanical Properties of Fluids</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11pa0" chap_index="10">
+  <div class="chapName_chapter_index">Chapter 10</div>
+  <div class="chapName_chapter_name">Thermal Properties of Solids</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11pa1" chap_index="11">
+  <div class="chapName_chapter_index">Chapter 11</div>
+  <div class="chapName_chapter_name">Thermodynamics</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11pa2" chap_index="12">
+  <div class="chapName_chapter_index">Chapter 12</div>
+  <div class="chapName_chapter_name">Kinetic Theory of Gases</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11pa3" chap_index="13">
+  <div class="chapName_chapter_index">Chapter 13</div>
+  <div class="chapName_chapter_name">Oscillations</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11pa4" chap_index="14">
+  <div class="chapName_chapter_index">Chapter 14</div>
+  <div class="chapName_chapter_name">Waves</div>
+</div>
+  </div>
+  <div class="price_box_contain">
+<div id="priceBox_p11fs" class="priceBox"></div>
+</div>
+  <div class="chapName_spacebox"></div>
+</section>
+
+<section id="class11_chemistry_formulaSheet_chap" class="content_section">
+  <div class="chapName_sub_from">
+    <div class="chapName_sub_from_text">
+      Chemistry Formula Sheets (Class 11)
+    </div>
+    <button id="bck_backBtn" class="bck_circle-btn" onclick="showHome()">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7" />
+  </svg>
+</button>
+  </div>
+  <div class="chapName_container" data_subject="c11fs">
+    <div class="chapName_chapter_box" chap_code="formula11c1" chap_index="1">
+  <div class="chapName_chapter_index">Chapter 1</div>
+  <div class="chapName_chapter_name">Some Basic Concepts of Chemistry</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11c2" chap_index="2">
+  <div class="chapName_chapter_index">Chapter 2</div>
+  <div class="chapName_chapter_name">Atomic Structure</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11c3" chap_index="3">
+  <div class="chapName_chapter_index">Chapter 3</div>
+  <div class="chapName_chapter_name">Classification of Elements and Periodicity in Properties</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11c4" chap_index="4">
+  <div class="chapName_chapter_index">Chapter 4</div>
+  <div class="chapName_chapter_name">Chemical Bonding and Molecular Structure</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11c5" chap_index="5">
+  <div class="chapName_chapter_index">Chapter 5</div>
+  <div class="chapName_chapter_name">Chemical Thermodynamics</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11c6" chap_index="6">
+  <div class="chapName_chapter_index">Chapter 6</div>
+  <div class="chapName_chapter_name">Equillibrium</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11c7" chap_index="7">
+  <div class="chapName_chapter_index">Chapter 7</div>
+  <div class="chapName_chapter_name">Redox Reactions</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11c8" chap_index="8">
+  <div class="chapName_chapter_index">Chapter 8</div>
+  <div class="chapName_chapter_name">Organic Chemistry</div>
+</div>
+<div class="chapName_chapter_box" chap_code="formula11c9" chap_index="9">
+  <div class="chapName_chapter_index">Chapter 9</div>
+  <div class="chapName_chapter_name">Hydrocarbons</div>
+</div>
+  </div>
+  <div class="price_box_contain">
+<div id="priceBox_c11fs" class="priceBox"></div>
+</div>
+  <div class="chapName_spacebox"></div>
+</section>
+<!-- Confirmation box -->
+<div class="chapName_conform_container" id="confirmContainer">
+  <button id="sendBtn">Unlock Chapter</button>
+</div>
+
+<section id="expired_section" class="content_section">
+  <div class="expire_text"></div>
+</section>
+  </main>
+
+
+<script>
+/*
+const student_Data = {
+webhook: "https://api.telebotcreator.com/new-webhook?data=gAAAAABpKYYA7OUOmX8SvoFJ0ATdYV0IyMCoEZEwWESVt69fxzsJAYVU7sfxDaCbEpc8d2BvT-JgIGLqStJr6eSr0Ei2yIFJw0kNKHh0MJ-UPXNOHzA6aHXDB0PDn5apKoFdilin5SCJLfQH95zB7Ix6RTgaB41JIVMfpZ5rcE_0Yq3RWCZ5d9IsqA3KlMVP948CDs0KzYLZaxp3d35gNva71GqgQ3wQkg%3D%3D",
+"name": "Ayush",
+classLevel: "Class 11",
+gender: "male",
+id: 1234567890,
+expire_time: 1767598820, //1767498820 1767500551
+unlocked: {
+'1767500620': ['formula11p1', 'formula11p2', 'formula11p3', 'formula11pa4', 'formula11p5', 'formula11p6', 'formula11p7', 'note11pa4', 'note12p2', 'note11c2']
+}
+};
+*/
+ function hexToString(hex) {
+   let str = '';
+   for (let i = 0; i < hex.length; i += 2) {
+     str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+   }
+   return str;
+ }
+ const whereis = new URLSearchParams(window.location.search);
+ const incriptedata = whereis.get("inc") || '7b7d';
+ const jsonString = hexToString(incriptedata);
+ const student_Data = JSON.parse(jsonString);
+
+let priceData = {
+  // class 11 Physics notes
+  p11n_all: 56,
+  p11n_total: 70,
+  p11n_saved: 20,
+  p11n_per_chapter_All: 4,
+  p11n_per_chapter_Half: 5,
+  // class 11 Chemistry notes
+  c11n_all: 45,
+  c11n_total: 54,
+  c11n_saved: 16.7,
+  c11n_per_chapter_All: 5,
+  c11n_per_chapter_Half: 6,
+  
+  b11n_all: 80,
+  b11n_total: 100,
+  b11n_saved: 20,
+  b11n_per_chapter_All: 4,
+  b11n_per_chapter_Half: 5,
+  
+  p11fs_all: 15,
+  p11fs_total: 15,
+  p11fs_saved: 0,
+  p11fs_per_formula_All: 1,
+  p11fs_per_formula_Half: 1,
+  
+  c11fs_all: 18,
+  c11fs_total: 18,
+  c11fs_saved: 0,
+  c11fs_per_formula_All: 2,
+  c11fs_per_formula_Half: 2,
+};
+/*
+ function hexToString(hex) {
+   let str = '';
+   for (let i = 0; i < hex.length; i += 2) {
+     str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+   }
+   return str;
+ }
+ const whereis = new URLSearchParams(window.location.search);
+ const incriptedata = whereis.get("inc") || '7b7d';
+ const jsonString = hexToString(incriptedata);
+ const student_Data = JSON.parse(jsonString);
+*/
+const time_ex = student_Data.expire_time;
+const current_time = Math.floor(Date.now() / 1000);
+const is_time = time_ex - current_time;
+
+function showHome() {
+  document.querySelectorAll(".content_section").forEach(sec => sec.classList.remove("active"));
+  document.getElementById("subject_list_main").classList.add("active");
+  setActiveIcon("homeIcon");
+}
+function showPractice() {
+  document.querySelectorAll(".content_section").forEach(sec => sec.classList.remove("active"));
+  document.getElementById("practice").classList.add("active");
+  setActiveIcon("practiceIcon");
+}
+
+function showStudentInfo() {
+  document.querySelectorAll(".content_section").forEach(sec => sec.classList.remove("active"));
+  document.getElementById("std_student").classList.add("active");
+  setActiveIcon("studentIcon");
+}
+function setActiveIcon(iconId) {
+  document.querySelectorAll(".floating_box span").forEach(icon => icon.classList.remove("active"));
+  document.getElementById(iconId).classList.add("active");
+}
+
+
+
+
+
+//handle exire time Error 200!
+if (!time_ex || is_time < 0) {
+  
+  document.querySelectorAll(".content_section").forEach(sec =>
+    sec.classList.remove("active")
+  );
+  
+  document.getElementById("expired_section").classList.add("active");
+  
+  setActiveIcon("homeIcon");
+  
+  const spinner_block = document.getElementById("floating_box_id");
+  spinner_block.style.display = "none";
+  
+  const expireDiv = document.querySelector("#expired_section .expire_text");
+  
+  // Different error messages
+  if (!time_ex) {
+    expireDiv.textContent = "Error 201!"; // expire_time missing
+  } else {
+    expireDiv.textContent = "Error 200!"; // expired
+  }
+} else {
+// On load: highlight Class 11 and Home
+window.onload = () => {
+document.querySelectorAll(".content_section").forEach(sec => sec.classList.remove("active"));
+document.getElementById("subject_list_main").classList.add("active");
+document.getElementById("menu_class_11").classList.add("active");
+setActiveIcon("homeIcon");
+};
+}
+// redirect to url
+function redirectWithQuery(baseUrl) {
+  const queryString = window.location.search;
+  const newUrl = baseUrl + queryString;
+  window.location.replace(newUrl);
+}
+  </script>
+</body>
+</html>

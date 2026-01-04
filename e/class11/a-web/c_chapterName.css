@@ -1,0 +1,227 @@
+.chapName_container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 190px));
+  gap: 10px;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  background: #f4f6f9;
+  margin: 0;
+  padding: 10px;
+  padding-bottom: 30px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+/* Force minimum 2 columns on small screens */
+@media (max-width: 480px) {
+  .chapName_container {
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+  }
+}
+
+/* Confirmation container */
+.chapName_conform_container {
+  position: fixed;
+  bottom: 80px; /* distance above the bottom edge */
+  left: 50%;
+  transform: translateX(-50%);
+  display: none; /* hidden initially */
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 40px);
+}
+/* Button styles */
+.chapName_conform_container button {
+  background: #ffc01d;
+  color: black;
+  font-family: "Poppins", sans-serif;
+  border: none;
+  font-size: 17px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  min-width: 260px;
+  max-width: 420px;
+}
+.chapName_conform_container button:hover {
+  background: #c6eace;
+}
+
+/* Spinner inside button */
+.chapName_spinner {
+  border: 2px solid black;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.chapName_chapter_box {
+  display: inline-block;
+  background: #fff;
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  cursor: pointer;
+}
+.chapName_chapter_box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+}
+.chapName_chapter_index {
+  font-size: 15px;
+  color: #0077cc;
+  margin-bottom: 6px;
+  font-family: Poppins, sans-serif;
+}
+.chapName_chapter_name {
+  font-family: Poppins, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  position: relative;
+  padding-left: 10px;
+}
+.chapName_chapter_name::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: red;
+}
+
+/* Locked style */
+.chapName_locked {
+  background: #f9fad2;
+}
+.chapName_lock_icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 16px;
+  height: 16px;
+  fill: dimgray;
+}
+.chapName_chapter_time {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 12px;
+  color: #0077cc;
+  font-family: Poppins, sans-serif;
+  background: #eef6ff;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+
+.chapName_sub_from {
+  display: flex;
+  flex-direction: horizontally;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f6f9;
+  padding: 0;
+  font-size: 16px;
+  gap: 1rem;
+  padding: 20px;
+  cursor: default;
+}
+.chapName_sub_from_text {
+  display: inline-block;/* makes box wrap around its content */
+  background: #3498db;
+  color: white;
+  padding: 5px 20px;                  /* space inside the box */
+  border-radius: 60px;
+  font-family: Poppins, sans-serif;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin: 0;
+}
+.chapName_spacebox{
+  height: 100px;
+  background-color: white;
+}
+
+
+.bck_circle-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #3498db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+  
+  /* Fixed position */
+  opacity: 0.9;
+  -webkit-tap-highlight-color: transparent;
+}
+.bck_circle-btn:focus,
+.bck_circle-btn:active {
+  outline: none;
+  border-radius: 50%;
+}
+.bck_circle-btn.bck_hidden {
+  opacity: 0;
+  pointer-events: none; /* prevent clicks when hidden */
+}
+.bck_circle-btn:hover {
+  background-color: #ddd;
+}
+.bck_circle-btn svg {
+  width: 24px;
+  height: 24px;
+  stroke: #333;
+}
+
+.price_box_contain {
+  background-color: #f4f6f9; /* f4f6f9 */
+  padding: 0 20px 3vh; /* top 0, left/right 20px, bottom 3vh */
+}
+
+.priceBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 260px;
+  max-width: 420px;
+  padding: 5px;
+  border: 2px solid #ADADAD;
+  border-radius: 8px;
+  background: #f8f9fa;
+  font-size: 16px;
+  line-height: 1.6;
+  font-family: "Poppins", sans-serif;
+  margin: 0 auto; /* centers horizontally */
+  color: #696969;
+  width: 100%; /* allow it to shrink on small screens */
+  box-sizing: border-box;
+  
+  user-select: none;          /* Standard */
+  -webkit-user-select: none;  /* Chrome, Safari */
+  -moz-user-select: none;     /* Firefox */
+  -ms-user-select: none; 
+}
+
+.price_bo_title {
+  font-weight: bold;
+  color: #1a73e8;
+  font-size: 17px;
+}
