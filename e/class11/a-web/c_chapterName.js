@@ -141,7 +141,7 @@ function handleSend() {
   if (!selectedCode) return;
   sendBtn.innerHTML = `Request sending... <span class="chapName_spinner"></span>`;
   
-  fetch(student_Data.webhook, {
+  fetch(student_Data.webhook_pri, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
